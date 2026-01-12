@@ -8,6 +8,8 @@ services:
 
   backend:
     build: ./backend-drf
+    ports:
+      - "8000:8000"
     env_file:
       - ./backend-drf/.env.docker
     depends_on:
@@ -24,7 +26,9 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_SERVER_BASE_URL: "/api/v1"
+        VITE_SERVER_BASE_URL: "http://backend:8000/api/v1"
+    ports:
+      - "5173:80"
     depends_on:
       - backend
 
